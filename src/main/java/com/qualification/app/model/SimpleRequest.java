@@ -1,10 +1,7 @@
 package com.qualification.app.model;
 
 import com.qualification.app.enums.RequestType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,6 +13,8 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(builderMethodName = "dataAndTypeBuilder")
+@ToString(exclude = {"createdDate", "modifiedDate"})
 public class SimpleRequest {
 
     @Id
@@ -45,8 +44,7 @@ public class SimpleRequest {
     @LastModifiedDate
     private Date modifiedDate;
 
-    public SimpleRequest(String data, RequestType requestType){
-        this.requestType = requestType;
-        this.data = data;
+    public static SimpleRequestBuilder builder(String data, RequestType requestType) {
+        return dataAndTypeBuilder().data(data).requestType(requestType);
     }
 }

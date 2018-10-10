@@ -1,19 +1,23 @@
-package com.qualification.app.service.saveToDBService;
+package com.qualification.app.service;
 
 import com.qualification.app.model.SimpleRequest;
 import com.qualification.app.repository.SimpleRequestRepository;
-import com.qualification.app.service.IRequestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class SaveToDBService implements IRequestService {
+@Slf4j
+class SaveToDBService implements IRequestService {
 
     @Autowired
     SimpleRequestRepository simpleRequestRepository;
 
+    @Transactional
     @Override
-    public void remove(SimpleRequest simpleRequest) {
+    public void process(SimpleRequest simpleRequest) {
+        log.info("Request is Type 1, save request in H2 database");
         simpleRequestRepository.save(simpleRequest);
     }
 }

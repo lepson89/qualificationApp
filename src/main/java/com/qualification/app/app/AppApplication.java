@@ -12,25 +12,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 @SpringBootApplication
 @ComponentScan("com.qualification.app")
 @EnableJpaRepositories("com.qualification.app.repository")
 @EnableJpaAuditing
 @EntityScan("com.qualification.app.model")
-public class AppApplication implements CommandLineRunner {
+public class AppApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
 
-    @Autowired
-    IRequestFacade requestFacade;
-
-    @Override
-    public void run(String... args) throws Exception {
-        for (int i = 0; i < 25 ; i++) {
-            SimpleRequest simpleRequest = new SimpleRequest("asdasd"+i, RequestType.FOURTH);
-            requestFacade.removeFromQueue(simpleRequest);
-        }
-    }
 }
